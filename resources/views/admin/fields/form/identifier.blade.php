@@ -1,0 +1,1 @@
+<input type="hidden" class="form-control" id="{{$field->fieldId}}" name="{{$field->fieldName}}" value="{{$field->value}}">

@@ -1,0 +1,20 @@
+{
+  "name": "laravelcmf",
+  "version": "0.0.0",
+  "description": "Laravel CMF Admin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.0",
+    "bootswatch": "^3.3.7",
+    "ckeditor": "^4.5.10",
+    "laravel-elixir": "^5.0.0",
+    "scriptjs": "^2.5.8",
+    "select2": "^4.0.3",
+    "webpack": "^1.13.1"
+  }
+}
