@@ -1,0 +1,13 @@
+{
+    "name": "laravel-cmf/admin",
+    "authors": [
+        {
+            "name": "Nick",
+            "email": "nickmartink@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "laravel/framework": "5.2.*",
+    }
+}

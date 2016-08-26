@@ -18,3 +18,5 @@ xcuserdata
 .svn
 CVS
 .idea/
+
+/vendor/
