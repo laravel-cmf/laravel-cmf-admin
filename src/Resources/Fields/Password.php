@@ -26,7 +26,7 @@ class Password extends ResourceField
         if($passwordData && !empty($passwordData['value']) && !empty($passwordData['confirm'])) {
             $this->password = $passwordData['value'];
             $this->passwordConfirm = $passwordData['confirm'];
-            $this->processedData = $this->encrypt($passwordData['value']);
+            $this->setProcessedData($this->encrypt($passwordData['value']));
         }
     }
 
