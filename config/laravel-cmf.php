@@ -5,7 +5,7 @@ use LaravelCMF\Admin\Models\Eloquent\Role;
 use LaravelCMF\Admin\Models\Eloquent\Setting;
 
 return [
-    'title' => 'CMF Demo',
+    'title' => 'CMF Admin',
     'admin' => [
         'prefix' => 'admin'
     ],
@@ -16,6 +16,6 @@ return [
         Role::class,
         Setting::class
     ],
-    'disk' => 's3',
-    'cdn_url' => 'https://s3-eu-west-1.amazonaws.com/f-bucket-test'
+//    'disk' => 'public (default) or local or s3 - enter your own storage disk',
+    //'cdn_url' => 'enter s3 bucket or cdn url here for prefixing images'
 ];
