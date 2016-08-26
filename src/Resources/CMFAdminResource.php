@@ -315,15 +315,7 @@ class CMFAdminResource
 
     public function identifier()
     {
-        $identifier = 'id';
-
-        $className = $this->getClassName();
-        if (!empty($className::$_resource_identifier)) {
-            $identifier = $className::$_resource_identifier;
-        } elseif ($this->hasModel() && method_exists($className, 'resourceIdentifier')) {
-            $identifier = $this->getResourceModel()->resourceIdentifier();
-        }
-        return $identifier;
+        return $this->getResourceCmfProperty('identifier', 'id');
     }
 
     public function menu_title()
