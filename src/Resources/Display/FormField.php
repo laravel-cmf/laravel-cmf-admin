@@ -29,7 +29,7 @@ class FormField
 
         $fieldName = $fieldId = $resourceField->getResourceKey() . '[' . $resourceField->getFieldKey() . ']';
         $value     = $resourceField->getValue();
-        if (empty($value) && !is_null($resourceField->getSetting('default', null))) {
+        if (is_null($value) && !is_null($resourceField->getSetting('default', null))) {
             $value = $resourceField->getSetting('default');
         }
 

@@ -203,7 +203,7 @@ class ResourceController extends BaseController
             abort(404);
         }
 
-        $actions = $resource->actions();
+        $actions = $resource->listActions();
         $key = $request->query('key');
         if(!isset($actions[$key])) {
             abort(500, 'Invalid action key');

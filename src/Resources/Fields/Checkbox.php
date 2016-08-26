@@ -11,7 +11,7 @@ class Checkbox extends ResourceField
     public function processRequest(Request $request)
     {
         $processedData       = $request->input($this->getRequestKey(), null);
-        $this->processedData = $processedData ? 1 : 0;
+        $this->setProcessedData($processedData ? 1 : 0);
     }
 
     /**

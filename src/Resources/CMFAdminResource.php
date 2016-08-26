@@ -326,39 +326,25 @@ class CMFAdminResource
         return $identifier;
     }
 
-    public function singular()
+    public function menu_title()
     {
-        $className = $this->getClassName();
-        if (!empty($className::$_singular)) {
-            return $className::$_singular;
-        } else {
-            if (method_exists($className, 'singular')) {
-                return $className::singular();
-            } else {
-                return Str::singular($this->getResourceKey());
-            }
-        }
+        return $this->getResourceCmfProperty('menuTitle', ucfirst($this->getResourceKey()));
     }
 
+    public function singular()
+    {
+        return $this->getResourceCmfProperty('singular', Str::singular($this->getResourceKey()));
+    }
     public function plural()
     {
-        $className = $this->getClassName();
-        if (!empty($className::$_plural)) {
-            return $className::$_plural;
-        } else {
-            if (method_exists($className, 'plural')) {
-                return $className::plural();
-            } else {
-                return $this->getResourceKey();
-            }
-        }
+        return $this->getResourceCmfProperty('plural', $this->getResourceKey());
     }
 
     public function getNavItem()
     {
         return [
             'link' => cmf_url($this->plural()),
-            'menu_title' => ucfirst($this->getResourceKey())
+            'menu_title' => $this->menu_title()
         ];
 
     }
@@ -376,7 +362,7 @@ class CMFAdminResource
     public function getActionLink($action)
     {
         $link = '';
-        $actions = $this->actions();
+        $actions = $this->listActions();
         if(isset($actions[$action])) {
             $link = cmf_url($this->plural() . '/' . $this->getResourceIdentifier() .'/action?key='.$action);
         }
