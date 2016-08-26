@@ -8,6 +8,7 @@ use LaravelCMF\Admin\Resources\Contracts\ResourceModel;
 use LaravelCMF\Admin\Resources\Fields\Select;
 use LaravelCMF\Admin\Resources\Registry;
 use LaravelCMF\Admin\Resources\Repository;
+use Illuminate\Http\Request;
 
 class ManyToMany extends Select
 {
@@ -64,6 +65,28 @@ class ManyToMany extends Select
         }
 
         return $fieldValue;
+    }
+
+    public function processRequest(Request $request)
+    {
+        $data = $request->input($this->getRequestKey(), []);
+        if (!is_array($data)) {
+            //problem..
+            $this->addError("The data could not be processed.");
+        }
+        //get relationship model from repository using identifiers
+        $model = $this->getSetting('model', false);
+
+        if ($model) {
+            /** @var Repository $repository */
+            $repository = app(Repository::class);
+            $adminResources = $repository->getItems($model, $data);
+            $this->setProcessedData(array_map(function(CMFAdminResource $adminResource) {
+                return $adminResource->getResourceModel();
+            }, $adminResources));
+        } else {
+            $this->addError('Could not find the relationhip.');
+        }
     }
 
 }

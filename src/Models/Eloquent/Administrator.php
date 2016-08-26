@@ -69,4 +69,13 @@ class Administrator extends BaseEloquentModel implements
         return $this->belongsToMany(Role::class, 'cmf_administrator_role');
     }
 
+    public function setRolesAttribute($roles)
+    {
+        $roleIds = array_map(function(Role $role) {
+            return $role->id;
+        }, $roles);
+
+        return $this->roles()->sync($roleIds);
+    }
+
 }

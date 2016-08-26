@@ -6,7 +6,7 @@
 <div class="form-group {{$field->hasErrors() ? 'has-error' : ''}}">
     <label for="select" class="col-lg-2 control-label">{{$field->label}}</label>
     <div class="col-lg-10">
-        <select class="form-control" id="{{$field->fieldId}}" name="{{$field->fieldName}}" {{$field->multiple ? "multiple" : ""}}>
+        <select class="form-control" id="{{$field->fieldId}}" name="{{$field->fieldName}}{{$field->multiple ? '[]' : ''}}" {{$field->multiple ? "multiple" : ""}}>
             @if($field->nullable)
                 <option value="">Select an option</option>
             @endif

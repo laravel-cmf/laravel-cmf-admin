@@ -31,12 +31,33 @@ class Repository
             $class = $resource->getClassName();
         } else {
             $class = $resource;
+            $resource = $this->getResource($class);
         }
 
-        $data  = $class::find($resourceId);
+        $data  = $class::where($resource->identifier(), '=', $resourceId)->first();
         if($data) {
             return new CMFAdminResource($data);
         }
+    }
+
+    public function getItems($resource, $resourceIds)
+    {
+        if(is_a($resource, CMFAdminResource::class)) {
+            //for now it is only Eloquent..
+            $class = $resource->getClassName();
+        } else {
+            $class = $resource;
+            $resource = $this->getResource($class);
+        }
+
+        $results  = $class::whereIn($resource->identifier(), $resourceIds)->get();
+
+        if($results) {
+            return array_map(function($result){
+                return new CMFAdminResource($result);
+            }, $results->all());
+        }
+
     }
 
     public function saveItem(CMFAdminResource $adminResource)
@@ -64,5 +85,10 @@ class Repository
             }, $data->all());
         }
         return null;
+    }
+
+    protected function getResource($class)
+    {
+        return Registry::instance()->getResourceModelByClass($class);
     }
 }
