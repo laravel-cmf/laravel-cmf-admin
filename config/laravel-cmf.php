@@ -16,6 +16,6 @@ return [
         Role::class,
         Setting::class
     ],
-//    'disk' => 'public (default) or local or s3 - enter your own storage disk',
+    //'disk' => 'public (default) or local or s3 - enter your own storage disk',
     //'cdn_url' => 'enter s3 bucket or cdn url here for prefixing images'
 ];

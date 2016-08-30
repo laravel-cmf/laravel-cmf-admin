@@ -66,7 +66,6 @@ class AssetController extends BaseController
 
     public function getUpload(Request $request, $filePath)
     {
-        dd($filePath);
         /** @var Filesystem $disk */
         $disk = Storage::disk(CMF::configGet('disk', 'public'));
 
