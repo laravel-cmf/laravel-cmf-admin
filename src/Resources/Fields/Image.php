@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use LaravelCMF\Admin\CMF;
+use LaravelCMF\Admin\Resources\Fields\Values\ImageObject;
 
 class Image extends ResourceField
 {
@@ -27,7 +28,9 @@ class Image extends ResourceField
     public function displayList()
     {
         $fileData = $this->getValue();
-        if(!$fileData) return '';
+        if (!$fileData) {
+            return '';
+        }
 
         return '<img src="' . cmf_file_url($fileData->src) . '" alt="" width="100" />';
     }
@@ -62,8 +65,8 @@ class Image extends ResourceField
         //move the file someplace
         //boom
         $fileData = null;
-        $fileKey = $this->getRequestKey() . '.file';
-        $keepKey = $this->getRequestKey() . '.keep';
+        $fileKey  = $this->getRequestKey() . '.file';
+        $keepKey  = $this->getRequestKey() . '.keep';
         $file     = $request->file($fileKey, null);
         if ($file) {
             //possibly validate image sizes etc.?
@@ -82,11 +85,13 @@ class Image extends ResourceField
             $fileData['path']      = $filePath;
             $fileData['file_name'] = $uniqueFileName;
             $fileData['src']       = $filePath . $uniqueFileName;
-            $this->fileUpload    = $file;
+            $this->fileUpload      = $file;
             $this->setProcessedData(json_encode($fileData));
-        } else if(!$request->input($keepKey)) {
-            $this->fileUpload    = null;
-            $this->setProcessedData(null);
+        } else {
+            if (!$request->input($keepKey)) {
+                $this->fileUpload = null;
+                $this->setProcessedData(null);
+            }
         }
     }
 
@@ -94,7 +99,7 @@ class Image extends ResourceField
     {
         $uniqueFileName = (!empty($version) ? $version . '_' : '') . $fileName;
         $file           = $filePath . $uniqueFileName;
-        $disk = $this->getDisk();
+        $disk           = $this->getDisk();
         if ($disk->exists($file)) {
             $uniqueFileName = $this->getUniqueFilePath($filePath, $fileName, $version + 1);
         }
@@ -104,15 +109,10 @@ class Image extends ResourceField
 
     public function getValue()
     {
-        $image = $this->fieldValue ? json_decode($this->fieldValue) : $this->fieldValue;
+        $imageArray = $this->fieldValue ? json_decode($this->fieldValue, true) : null;
 
-//        if($image) {
-////            dd($this->getDisk()->url($image->src));
-//            $image->src = cmf_file_url($image);
-////            dd();
-//        }
+        return !empty($imageArray) && is_array($imageArray) ? new ImageObject($imageArray) : null;
 
-        return !empty($image) ? $image : null;
     }
 
     /**
@@ -120,7 +120,7 @@ class Image extends ResourceField
      */
     public function getDisk()
     {
-        if(!$this->disk) {
+        if (!$this->disk) {
             $this->disk = Storage::disk(CMF::configGet('disk', 'public'));
         }
         return $this->disk;
@@ -129,7 +129,7 @@ class Image extends ResourceField
     public function delete()
     {
         $disk = $this->getDisk();
-        if($this->getValue() && $disk->exists($this->getValue()->src)) {
+        if ($this->getValue() && $disk->exists($this->getValue()->src)) {
             $disk->delete($this->getValue()->src);
         }
     }
