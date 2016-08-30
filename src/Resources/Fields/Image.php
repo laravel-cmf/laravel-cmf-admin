@@ -109,6 +109,8 @@ class Image extends ResourceField
 
     public function getValue()
     {
+        if(is_a($this->fieldValue, ImageObject::class)) return $this->fieldValue;
+
         $imageArray = $this->fieldValue ? json_decode($this->fieldValue, true) : null;
 
         return !empty($imageArray) && is_array($imageArray) ? new ImageObject($imageArray) : null;

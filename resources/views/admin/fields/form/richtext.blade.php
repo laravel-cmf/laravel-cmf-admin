@@ -1,3 +1,7 @@
+@section('cmf_assets')
+    @parent
+    <script src="{{cmf_asset('vendor/ckeditor/ckeditor.js')}}"></script>
+@endsection
 <div class="form-group {{$field->hasErrors() ? 'has-error' : ''}}">
     <label for="{{$field->fieldId}}" class="col-lg-2 control-label">{{$field->label}}</label>
     <div class="col-lg-10">
