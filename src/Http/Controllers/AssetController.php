@@ -66,9 +66,11 @@ class AssetController extends BaseController
 
     public function getUpload(Request $request, $filePath)
     {
+
         /** @var Filesystem $disk */
         $disk = Storage::disk(CMF::configGet('disk', 'public'));
 
+        $filePath = 'uploads/'.$filePath;
         if(!$disk->exists($filePath)) abort(404);
 
         $file = $disk->get($filePath);
