@@ -20,6 +20,7 @@ class CMFAdminProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', CMF::PACKAGE_NAME);
 
         $this->publishes([
@@ -34,7 +35,6 @@ class CMFAdminProvider extends ServiceProvider
 //            __DIR__ . '/../../database/migrations/' => base_path('/database/migrations'),
 //        ], 'migrations');
 
-        include __DIR__ . '/../Support/helpers.php';
 //        include __DIR__ . '/../routes.php';
 
         $this->registerViewComposer(CMF::PACKAGE_NAME . '::*',  [
@@ -52,6 +52,7 @@ class CMFAdminProvider extends ServiceProvider
      */
     public function register()
     {
+        include __DIR__ . '/../Support/helpers.php';
         $this->mergeConfigFrom(
             __DIR__ . '/../../config/laravel-cmf.php', CMF::PACKAGE_NAME_CONFIG
         );

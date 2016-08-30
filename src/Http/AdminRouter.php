@@ -32,17 +32,20 @@ class AdminRouter
             [
                 'url' => 'password/reset/{token?}',
                 'action' => 'showResetForm',
-                'methods' => ['get']
+                'methods' => ['get'],
+                'controller' => 'Auth\PasswordController'
             ],
             [
                 'url' => 'password/email',
                 'action' => 'sendResetLinkEmail',
-                'methods' => ['post']
+                'methods' => ['post'],
+                'controller' => 'Auth\PasswordController'
             ],
             [
                 'url' => 'password/reset',
                 'action' => 'reset',
-                'methods' => ['post']
+                'methods' => ['post'],
+                'controller' => 'Auth\PasswordController'
             ],
         ],
         'admin_resources' => [
@@ -253,9 +256,10 @@ class AdminRouter
             $admin_auth = $this->routes['admin_auth'];
             $closure    = function () use ($admin_auth, $router) {
                 foreach ($admin_auth as $authRoute) {
+                    $controller = isset($authRoute['controller']) ? $authRoute['controller'] : 'Auth\AuthController';
                     $router->match($authRoute['methods'],
                         $authRoute['url'],
-                        ['uses' => 'Auth\AuthController@' . $authRoute['action']]
+                        ['uses' => $controller.'@' . $authRoute['action']]
                     );
                 }
             };

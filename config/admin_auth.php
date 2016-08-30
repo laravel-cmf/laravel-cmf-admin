@@ -15,4 +15,12 @@ return [
             'model' => Administrator::class,
         ],
     ],
+    'passwords' => [
+        'cmf_administrators' => [
+            'provider' => 'cmf_admins',
+            'email' => CMFTemplate('admin.auth.emails.password'),
+            'table' => 'cmf_administrator_password_resets',
+            'expire' => 60,
+        ],
+    ],
 ];

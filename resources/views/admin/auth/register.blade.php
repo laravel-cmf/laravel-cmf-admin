@@ -7,6 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Install</div>
                 <div class="panel-body">
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ $cmf_install_url }}">
                         {{ csrf_field() }}
 
