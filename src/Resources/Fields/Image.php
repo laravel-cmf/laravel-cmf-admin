@@ -32,7 +32,8 @@ class Image extends ResourceField
             return '';
         }
 
-        return '<img src="' . cmf_file_url($fileData->src) . '" alt="" width="100" />';
+        return '<img src="' . $fileData->src_url . '" alt="" width="100" />
+        <p>'.$fileData->src_url.'</p>';
     }
 
     protected function getFormDisplayData()

@@ -6,7 +6,7 @@
                 <div class="col-lg-12">
                     <div class="checkbox" style="margin:0 auto 20px; text-align:center;max-width: 50%;">
                         <img src="{{cmf_file_url($field->value->src)}}" alt="" style="max-width:100%"/>
-
+                        <p>{{$field->value->src_url}}</p>
                         <label>
                             <input type="checkbox" id="{{$field->fieldId}}" name="{{$field->fieldName}}[keep]" checked>  Keep current image
                         </label>
