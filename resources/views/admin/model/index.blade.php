@@ -12,7 +12,7 @@
         <thead>
         <tr>
             @foreach($resource->listFields() as $listField)
-                <th>{{ucfirst($listField)}}</th>
+                <th>{{ucfirst(str_replace("_", " ", $listField))}}</th>
             @endforeach
             <th>Actions</th>
         </tr>

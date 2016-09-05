@@ -24,7 +24,7 @@ class FormField
     public static function create(ResourceField $resourceField)
     {
         $formField = new self($resourceField, $resourceField->getFormTemplate());
-        $title     = $resourceField->getSetting('title', $resourceField->getFieldKey());
+        $title     = $resourceField->getSetting('title', str_replace("_", " ", $resourceField->getFieldKey()));
         $formField->set('label', ucfirst($title));
 
         $fieldName = $fieldId = $resourceField->getResourceKey() . '[' . $resourceField->getFieldKey() . ']';

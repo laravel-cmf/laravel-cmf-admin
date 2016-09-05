@@ -7,6 +7,9 @@ class FormTab
     /** @var  string */
     protected $key;
 
+    /** @var  string */
+    protected $title;
+
     /** @var  array */
     protected $settings;
 
@@ -22,6 +25,7 @@ class FormTab
     {
         $this->key = $key;
         $this->settings = $settings;
+        $this->title = isset($settings['title']) ? $settings['title'] : ucfirst($key);
     }
 
     /**
@@ -56,6 +60,6 @@ class FormTab
 
     public function getTitle()
     {
-        return ucfirst($this->getKey());
+        return $this->title;
     }
 }

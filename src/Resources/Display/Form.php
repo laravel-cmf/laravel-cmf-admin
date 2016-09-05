@@ -82,8 +82,14 @@ class Form
     {
         if(!$this->tabs) {
             $tabs = $this->adminResource->tabs();
-            foreach($tabs as $tabKey => $tabName) {
-                $this->tabs[$tabKey] = new FormTab($tabKey);
+            foreach($tabs as $tabKey => $tabSettings) {
+                if(is_numeric($tabKey)) {
+                    $tabKey = $tabSettings;
+                }
+                if(is_string($tabSettings)) {
+                    $tabSettings = ['title' => $tabSettings];
+                }
+                $this->tabs[$tabKey] = new FormTab($tabKey, $tabSettings);
             }
             $groups = $this->getGroups();
             foreach($groups as $group) {

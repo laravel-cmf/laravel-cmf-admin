@@ -74,7 +74,9 @@ class Administrator extends BaseEloquentModel implements
         $roleIds = array_map(function(Role $role) {
             return $role->id;
         }, $roles);
-
+        if(!$this->exists) {
+            $this->save();
+        }
         return $this->roles()->sync($roleIds);
     }
 
